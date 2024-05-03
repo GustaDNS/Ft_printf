@@ -6,11 +6,11 @@
 /*   By: gudaniel <gudaniel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 14:39:15 by gudaniel          #+#    #+#             */
-/*   Updated: 2024/05/01 17:50:08 by gudaniel         ###   ########.fr       */
+/*   Updated: 2024/05/03 11:06:09 by gudaniel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 static int	ft_format(char c, va_list arg)
 {
@@ -38,7 +38,6 @@ static int	ft_format(char c, va_list arg)
 	return (result);
 }
 
-
 int	ft_printf(const char *s, ...)
 {
 	int		result;
@@ -48,7 +47,7 @@ int	ft_printf(const char *s, ...)
 	va_start(ap, s);
 	while (*s != '\0')
 	{
-		while (*s != '%' && *s !='\0')
+		while (*s != '%' && *s != '\0')
 			result += write(1, s++, 1);
 		if (*s != '\0' && ++s)
 			result += ft_format(*(s++), ap);
@@ -57,20 +56,30 @@ int	ft_printf(const char *s, ...)
 	return (result);
 }
 
-int main()
+/* int main()
 {
+	#include <stdio.h>
     char c = 'k'; // %c
-    char *str = "String test"; // %s
-    char *var; var = &c;// %p
-    int nbr = -5;// %d // %i
-    unsigned int nbrr = 20;// %u
+    char *str = NULL; // %s
+    int nbr = 16;// %d // %i
+    unsigned int nbrr = 4294967295;// %u
+    int *var; var = &nbr;// %p
     int b= 0xffffffff;// %x // %X
     // %%
     int i;
-    i = ft_printf("Printf replica:\n| TEST TEXT |\n| Single Char: %c |\n| String: %s |\n| Pointer Adress: %p |\n| Decimal: %d |\n| Integer %i |\n| Unsign deci: %u |\n| HexLower: %x |\n| HexUpper: %X |\n| Percentage sign: %% |\n", c, str, var, nbr, nbr, nbrr, b, b);
+    i = ft_printf("Printf replica:\n| TEST TEXT |\n| Single Char: %c 
+	|\n| String: %s |\n| Pointer Adress: %p |\n| Decimal: %d |\n| 
+	Integer %i |\n| Unsign deci: %u |\n| 
+	HexLower: %x |\n| HexUpper: %X |\n| Percentage sign: %% 
+	|\n", c, str, var, nbr, nbr, nbrr, b, b);
     printf("\nReturn Value: %d", i);
     ///////////////////////////////
-    i = printf("Printf replica:\n| TEST TEXT |\n| Single Char: %c |\n| String: %s |\n| Pointer Adress: %p |\n| Decimal: %d |\n| Integer %i |\n| Unsign deci: %u |\n| HexLower: %x |\n| HexUpper: %X |\n| Percentage sign: %% |\n", c, str, var, nbr, nbr, nbrr, b, b);
+    i = printf("Printf replica:\n| TEST TEXT |\n| Single Char: %c 
+	|\n| String: %s |\n| 
+	Pointer Adress: %p |\n| Decimal: %d |\n| Integer %i |\n| Unsign 
+	deci: %u |\n| HexLower: %x |\n| 
+	HexUpper: %X |\n| Percentage sign: %% |\n", c, str, var, nbr, 
+	nbr, nbrr, b, b);
     printf("\nReturn Value: %d", i);
     return (0);
-}
+} */

@@ -6,21 +6,22 @@
 /*   By: gudaniel <gudaniel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 14:48:57 by gudaniel          #+#    #+#             */
-/*   Updated: 2024/05/01 18:00:07 by gudaniel         ###   ########.fr       */
+/*   Updated: 2024/05/03 10:58:45 by gudaniel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 int	ft_putchar(char c)
 {
 	write(1, &c, 1);
 	return (1);
 }
+
 int	ft_putnbr(int n)
 {
-	int count;
-	
+	int	count;
+
 	count = 0;
 	if (n == -2147483648)
 	{
@@ -43,11 +44,12 @@ int	ft_putnbr(int n)
 		count += ft_putchar(n + 48);
 	return (count);
 }
+
 int	ft_putstr(char *s)
 {
 	int	i;
 	int	res;
-	
+
 	res = 0;
 	if (!s)
 	{
@@ -57,34 +59,40 @@ int	ft_putstr(char *s)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		write(1, &s[i], 1);
+		res += write(1, &s[i], 1);
 		i++;
 	}
-	return (res);	
+	return (res);
 }
 
 int	ft_putptr(unsigned long n, int i)
 {
 	const char	*base;
-	int		res;
+	int			res;
 
 	res = 0;
 	base = "0123456789abcdef";
-	if (i == 0)
-	{	
-		res = 2;
-		write (1, "0x", 2);		
+	if (!n)
+	{
+		res += write(1, "(nil)", 5);
+		return (res);
 	}
-	if (n > 16)
+	if (i == 0)
+	{
+		res = 2;
+		write(1, "0x", 2);
+	}
+	if (n >= 16)
 	{
 		res += ft_putptr(n / 16, 1);
 		n = n % 16;
 	}
-	if (n <= 16)
+	if (n < 16)
 		res += ft_putchar(base[n]);
 	return (res);
 }
-int	ft_puthex(unsigned long n, const char c)
+
+int	ft_puthex(unsigned int n, const char c)
 {
 	char	*base;
 	int		res;
@@ -94,10 +102,10 @@ int	ft_puthex(unsigned long n, const char c)
 		base = "0123456789abcdef";
 	if (c == 'X')
 		base = "0123456789ABCDEF";
-	if (n > 16)
+	if (n >= 16)
 	{
 		res += ft_puthex(n / 16, c);
-		res += ft_puthex(n % 16 , c);
+		res += ft_puthex(n % 16, c);
 	}
 	else
 		res += ft_putchar(base[n]);
